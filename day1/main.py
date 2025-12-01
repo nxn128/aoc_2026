@@ -36,12 +36,17 @@ def calculate_password_2():
       elif line.startswith('L'):
         direction = -1
 
-      for i in range(rotations):
-        position = (position + (direction * 1)) % rollover_position
-        if position == 0:
-          zero_count += 1
+      if position == 0:
+        zero_count += rotations // rollover_position
+      elif direction == 1:
+        zero_count += (position + rotations) // rollover_position
+      else:
+        if rotations >= position:
+          zero_count += 1 + (rotations - position) // rollover_position
 
-    print(zero_count)
+      position = (position + direction * rotations) % rollover_position
+
+  print(zero_count)
 
 
 calculate_password_2()
